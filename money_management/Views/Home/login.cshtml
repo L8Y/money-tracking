@@ -1,0 +1,86 @@
+﻿@{
+        Layout = null;
+    }
+
+
+<html>
+    <head>
+        <style>
+            :root {
+    --form-background: rgba(64, 75, 135, 0.1);
+    --text: #515151;
+    --form-secondary: #72bb93;
+}
+
+.form-page {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.form-title {
+    color: var(--form-secondary);
+    display: flex;
+    justify-content: center;
+    color: var(--form-secondary);
+}
+
+.form {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.form-input {
+    width: 22rem;
+    height: 2.6rem;
+    border-radius: 1rem;
+    border: 1px solid var(--form-secondary);
+    color: var(--text);
+    font-size: large;
+    padding-left: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.form-button {
+    background-color: var(--form-secondary);
+    color: #FFFFFF;
+    width: 12rem;
+    height: 3rem;
+    border-radius: 2rem;
+    border : none;
+    cursor: pointer;
+    font-size: large;
+}
+
+.form-button-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+        </style>
+
+    </head>
+    <body>
+        
+        <form class="form" method="post">
+
+            <div class="form-page">
+            <h1 class="form-title" >Login</h1>
+
+            <input class="form-input" required type="email" placeholder="Email" name="email" />
+
+            <input class="form-input" required placeholder="Password" type="password" name="password" />
+            <section class="form-button-layout">
+            <input class="form-button" type="submit" value="Login" />
+            <br />
+            <p>Don't have an account? <a href="register">Sign Up</a></p>
+            </section>
+            </div> 
+            </form>
+         
+@ViewData["Message"]
+
+    </body>
+</html>

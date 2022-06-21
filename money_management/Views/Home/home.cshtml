@@ -1,0 +1,30 @@
+﻿
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>Hello</h1>
+        
+       @ViewBag.Users
+       @ViewBag.name
+       <form method="post">
+       <input type="text" placeholder="Enter reason" name="Reason"/>
+       <input type="number" placeholder="Enter amount" name="Amount"/>
+       <select name="User_BankId" id="Bank_id" required class="add_drop_down" >
+                 @foreach(var item in ViewBag.accountDetails){
+                 <option required value="@item.User_BankId">@item.Account_Name</option>
+                 }
+                </select>
+       <select name="Transaction_type" id="transaction" required class="add_drop_down" >
+                
+          <option required value=0>Credit</option>
+          <option required value=1>Debit</option>
+                
+                </select>
+                
+       <input type="submit" value="Submit" onclick=onsubmit/>
+       </form>
+    </body>
+</html>
+

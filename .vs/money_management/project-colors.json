@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "22cf14aa-4792-4b0a-ba40-8978e36c2d02": {
+      "ProjectGuid": "22cf14aa-4792-4b0a-ba40-8978e36c2d02",
+      "DisplayName": "money_management",
+      "ColorIndex": 0
+    },
+    "c435e7a4-fceb-4ae5-99f1-300f7dbd1623": {
+      "ProjectGuid": "c435e7a4-fceb-4ae5-99f1-300f7dbd1623",
+      "DisplayName": "money_tracker_lib",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

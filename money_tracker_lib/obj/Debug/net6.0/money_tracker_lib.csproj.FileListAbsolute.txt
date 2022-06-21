@@ -1,0 +1,12 @@
+C:\money_management\money_tracker_lib\obj\Debug\net6.0\money_tracker_lib.csproj.AssemblyReference.cache
+C:\money_management\money_tracker_lib\obj\Debug\net6.0\money_tracker_lib.GeneratedMSBuildEditorConfig.editorconfig
+C:\money_management\money_tracker_lib\obj\Debug\net6.0\money_tracker_lib.AssemblyInfoInputs.cache
+C:\money_management\money_tracker_lib\obj\Debug\net6.0\money_tracker_lib.AssemblyInfo.cs
+C:\money_management\money_tracker_lib\obj\Debug\net6.0\money_tracker_lib.csproj.CoreCompileInputs.cache
+C:\money_management\money_tracker_lib\bin\Debug\net6.0\money_tracker_lib.deps.json
+C:\money_management\money_tracker_lib\bin\Debug\net6.0\money_tracker_lib.dll
+C:\money_management\money_tracker_lib\bin\Debug\net6.0\ref\money_tracker_lib.dll
+C:\money_management\money_tracker_lib\bin\Debug\net6.0\money_tracker_lib.pdb
+C:\money_management\money_tracker_lib\obj\Debug\net6.0\money_tracker_lib.dll
+C:\money_management\money_tracker_lib\obj\Debug\net6.0\ref\money_tracker_lib.dll
+C:\money_management\money_tracker_lib\obj\Debug\net6.0\money_tracker_lib.pdb
