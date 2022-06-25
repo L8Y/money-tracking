@@ -20,9 +20,14 @@ namespace money_management.Controllers
         [HttpGet]
         public ActionResult home()
         {
+            if (HttpContext.Session.GetString("login_email") == null)
+            {
+                return RedirectToAction("login");
+            }
+
             
-            ViewBag.Users = HttpContext.Session.GetInt32("login_userId");
             ViewBag.name = HttpContext.Session.GetString("login_email");
+
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
             var accountDetails = _bank_DetailsService.getAccounts(userId);
             ViewBag.accountDetails = accountDetails;
@@ -42,36 +47,55 @@ namespace money_management.Controllers
             
             ViewBag.accountDetails = accountDetails;
 
+            bool isAmountValid = false;
             if(Convert.ToInt32(transaction_type) == 0)
             {
                 foreach (var item in accountDetails)
                 {
+                    isAmountValid = true;
                     balance = Convert.ToInt32(item.Initial_Balance) + Amount;
                 }
+                    
             }
             else
             {
                 foreach (var item in accountDetails)
                 {
-                    balance = Convert.ToInt32(item.Initial_Balance) - Amount;
+                    if (Convert.ToInt32(item.Initial_Balance) < Amount)
+                    {
+                        isAmountValid = true;
+                        balance = Convert.ToInt32(item.Initial_Balance) - Amount;
+                        
+                    }
+                    else
+                    {
+                        isAmountValid = false;
+                        ViewBag.Error = "Your expense is greater than the amount";
+                    }
                 }
 
             }
 
-            
-
-            var isCredited = _reportServices.AddTransaction(Reason, Amount, balance, Convert.ToByte(transaction_type), currentDate, userId, Convert.ToInt32(user_bankid));
-            
-            if(isCredited > 0)
+            if (isAmountValid == true)
             {
+                /*var isCredited = _reportServices.AddTransaction(Reason, Amount, balance, Convert.ToByte(transaction_type), currentDate, userId, Convert.ToInt32(user_bankid));*/
+                var isCredited = _reportServices.AddTransaction(Reason, Amount, balance, Convert.ToByte(transaction_type), currentDate, userId, Convert.ToInt32(user_bankid));
                 var isBalanceUpdated = _bank_DetailsService.updateInitialBalance(userId, Convert.ToInt32(user_bankid), balance);
-                ViewBag.Users = "Added";
-            }
-            else
-            {
-                ViewBag.Users = "Not successfull";
+                if (isCredited > 0)
+                {
+
+                    ViewBag.Users = "Added";
+                }
+                else
+                {
+                    ViewBag.Users = "Not successfull";
+
+                }
 
             }
+
+
+
 
 
             return View();
@@ -174,6 +198,48 @@ namespace money_management.Controllers
             }
             return View();
            
+        }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Remove("login_email");
+            HttpContext.Session.Remove("login_userId");
+            return RedirectToAction("login");
+
+        }
+        [HttpGet]
+        public ActionResult Report()
+        {
+            var userId = (int)HttpContext.Session.GetInt32("login_userId");
+            var accountDetails = _bank_DetailsService.getAccounts(userId);
+            ViewBag.accountDetails = accountDetails;
+           
+            var displayReportsById = _reportServices.displayReportsById(userId);
+            ViewBag.displayReports = displayReportsById;
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult Report(EventArgs e)
+        {
+            string dropdown_bankAccount = Request.Form["User_BankId"];
+            var userId = (int)HttpContext.Session.GetInt32("login_userId");
+            var accountDetails = _bank_DetailsService.getAccounts(userId);
+            ViewBag.accountDetails = accountDetails;
+
+            if (dropdown_bankAccount == "All Accounts")
+            {
+                var displayReportsById = _reportServices.displayReportsById(userId);
+                ViewBag.displayReports = displayReportsById;
+            }
+            else
+            {
+                var displayReports = _reportServices.displayReports(userId, Convert.ToInt32(dropdown_bankAccount));
+                ViewBag.displayReports = displayReports;
+
+            }
+                    
+            return View();
         }
 
 

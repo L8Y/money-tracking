@@ -77,8 +77,9 @@ namespace money_management.Services
                 {
                     connection.Open();
                     int isUserAdded = command.ExecuteNonQuery();
-                    return isUserAdded;
+                    
                     connection.Close();
+                    return isUserAdded;
                 }
                 catch (Exception ex)
                 {

@@ -56,6 +56,7 @@ namespace money_management.Services
             using (SqlConnection connection =
            new SqlConnection(Constr))
             {
+                /*var AddTransactionquery = "EXEC newTransaction @Date = @Date, @Reason = @Reason, @Amount = @Amount, @Balance = @Balance, @Transaction_type = @Transaction_type, @UserId = @UserId, @User_BankId = @User_BankId ;";*/
                 var AddTransactionquery = "insert into [dbo].[Report] values(@Date, @Reason, @Amount, @Balance, @Transaction_type, @UserId, @User_BankId)";
                 SqlCommand command = new SqlCommand(AddTransactionquery, connection);
                 command.Parameters.AddWithValue("@Date", currentDate);
@@ -70,8 +71,10 @@ namespace money_management.Services
                 {
                     connection.Open();
                     int isTransactionDone = command.ExecuteNonQuery();
-                    return isTransactionDone;
+                    
                     connection.Close();
+                    return isTransactionDone;
+
                 }
                 catch (Exception ex)
                 {
@@ -85,6 +88,97 @@ namespace money_management.Services
 
 
         }
+
+        public IEnumerable<Report> displayReports(int UserId, int User_BankId)
+        {
+            List<Report> reports = new List<Report>();
+            using (SqlConnection connection =
+           new SqlConnection(Constr))
+            {
+                // Create the Command and Parameter objects.
+                var displayReportsQuery = "SELECT  [Date], [Reason] ,[Amount], [Balance], [Transaction_type] FROM [dbo].[Report] where UserId = @UserId and User_BankId = @User_BankId";
+                SqlCommand command = new SqlCommand(displayReportsQuery, connection);
+                command.Parameters.AddWithValue("@UserId", UserId);
+                command.Parameters.AddWithValue("@User_BankId", User_BankId);
+
+
+                // Open the connection in a try/catch block.
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        reports.Add(new Report
+                        {
+                            Date = Convert.ToDateTime(reader[0]),
+                            Reason = reader[1].ToString(),
+                            Amount = Convert.ToInt32(reader[2]),
+                            Balance = Convert.ToInt32(reader[3]),
+                            Transaction_type = Convert.ToByte(reader[4])
+
+                        });
+
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
+            return reports;
+
+
+
+
+        }
+
+        public IEnumerable<Report> displayReportsById(int UserId)
+        {
+            List<Report> reports = new List<Report>();
+            using (SqlConnection connection = new SqlConnection(Constr))
+            {
+                var displayReportsQuery = "SELECT  [Date], [Reason] ,[Amount], [Balance], [Transaction_type] FROM [dbo].[Report] where UserId = @UserId";
+                SqlCommand command = new SqlCommand(displayReportsQuery, connection);
+                command.Parameters.AddWithValue("@UserId", UserId);
+                
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        reports.Add(new Report
+                        {
+                            Date = Convert.ToDateTime(reader[0]),
+                            Reason = reader[1].ToString(),
+                            Amount = Convert.ToInt32(reader[2]),
+                            Balance = Convert.ToInt32(reader[3]),
+                            Transaction_type = Convert.ToByte(reader[4])
+
+                        });
+
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
+            return reports;
+
+
+
+
+        }
+
+
     }
 }
 

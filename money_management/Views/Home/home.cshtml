@@ -1,13 +1,18 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
 <html>
     <head>
+        <style>
+
+        </style>
+
+
+        @*Context.Session.GetString("login_role")*@
 
     </head>
     <body>
-        <h1>Hello</h1>
         
-       @ViewBag.Users
-       @ViewBag.name
+        @ViewBag.Users
+     <div class=""> </div>
        <form method="post">
        <input type="text" placeholder="Enter reason" name="Reason"/>
        <input type="number" placeholder="Enter amount" name="Amount"/>
@@ -25,6 +30,8 @@
                 
        <input type="submit" value="Submit" onclick=onsubmit/>
        </form>
+      
+        @ViewBag.Error
     </body>
 </html>
 

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WkoMeqAlAMc4hx+6bIyGOSvu46fgJrIO8w9MR7bIRgY=",
+  "Hash": "IXDolUQrRJT+x2zcFZngadAe2gr7CXfVtSqDOzLeXms=",
   "Source": "money_management",
   "BasePath": "_content/money_management",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\money_management\\money_management\\wwwroot\\lib\\search-icon.svg",
+      "SourceId": "money_management",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\money_management\\money_management\\wwwroot\\",
+      "BasePath": "_content/money_management",
+      "RelativePath": "lib/search-icon.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\search-icon.svg"
     }
   ]
 }

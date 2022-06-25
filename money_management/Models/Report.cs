@@ -6,7 +6,7 @@ namespace money_management.Models
     {
         [System.ComponentModel.DataAnnotations.Key]
         public int Report_No {get; set;}
-        public DateOnly Date  { get; set; }
+        public DateTime Date  { get; set; }
         public string Reason { get; set; }  
         public int Amount { get; set; } 
         public int Balance { get; set; }    

@@ -1,0 +1,110 @@
+﻿<html>
+    <head>
+        <style>
+
+            .dropdown-area{
+                display: flex;
+                justify-content: center;
+                margin-top: 2rem;
+
+
+            }
+
+            .dropdown{
+                background-color: white;
+                width: 13rem;
+                border: 2px solid black;
+                font-family: "Handlee", cursive;
+                text-align: center;
+                font-size : 18px;
+            }
+
+            .submit-button{
+                padding-top: 0px;
+                border: none;
+                width: 4rem;
+                height: 3px;
+                cursor: pointer;
+                margin-left: 1rem;
+                margin-top: -0.4rem;
+                
+                
+            }
+
+            .report-table{
+                display: flex;
+                justify-content: center;
+                margin-top: 2rem;
+            }
+
+            table {
+                font-family: "Handlee", cursive;
+                border-collapse: collapse;
+                width: 80%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+                margin: 1px 0px 1px 0px;
+                font-size: 18px;
+            }
+
+            th{
+                background-color: #ff6d00;
+                color: white;
+                
+            }
+
+            tr:nth-child(even) {
+                
+            }
+
+        </style>
+    </head>
+    <body>
+        <form method="post">
+            <div class="dropdown-area">
+            <select name="User_BankId" id="Bank_id" required class="dropdown" >
+               
+                <option required value="All Accounts">All Accounts</option>
+                 @foreach(var item in ViewBag.accountDetails){
+                 <option required value="@item.User_BankId">@item.Account_Name</option>
+                 }
+                </select>
+            <button type="submit" class="submit-button" onclick=onsubmit><img src="~/lib/search-icon.svg" /></button>
+            </div>
+            <div class="report-table">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Reason</th>
+                    <th>Amount</th>
+                    <th>Balance</th>
+                    
+                </tr>
+                @foreach(var item in ViewBag.displayReports)
+                {
+                    <tr>
+                        <td>@item.Date.ToString("dd/mm/yyyy")</td>
+                        <td>@item.Reason</td>
+                        @if(@item.Transaction_type == 0)
+                        {
+                            <td style="color: #28AF12">+@item.Amount</td>
+                        }
+                        else
+                        {
+                           <td style="color: #DD0000">-@item.Amount</td> 
+                        }
+                        
+                        <td><b>@item.Balance</b></td>
+                       
+                    </tr>
+                }
+
+            </table>
+           </div>
+        </form>
+    </body>
+</html>

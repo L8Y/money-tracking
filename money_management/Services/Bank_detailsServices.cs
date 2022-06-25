@@ -96,23 +96,24 @@ namespace money_management.Services
 
         }
 
-        public int updateInitialBalance(int UserId, int User_BankId, int Initial_Balance)
+        public int updateInitialBalance(int userId, int user_bankid, int balance)
         {
             using (SqlConnection connection =
            new SqlConnection(Constr))
             {
-                var updateBalanceQuery = "UPDATE [dbo].[Bank_details] SET Initial_Balance = @Initial_Balance where UserId = @UserId and User_BankId = @User_BankId";
+                var updateBalanceQuery = "UPDATE [dbo].[Bank_details] SET Initial_Balance = @balance where UserId = @userId and User_BankId = @user_bankid";
                 SqlCommand command = new SqlCommand(updateBalanceQuery, connection);
-                command.Parameters.AddWithValue("@Initial_Balance", Initial_Balance);
-                command.Parameters.AddWithValue("@User_Id", UserId);
-                command.Parameters.AddWithValue("@User_BankId", User_BankId);
+                command.Parameters.AddWithValue("@balance", balance);
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@user_bankid", user_bankid);
 
                 try
                 {
                     connection.Open();
                     int isBalanceUpdated = command.ExecuteNonQuery();
-                    return isBalanceUpdated;
+                    
                     connection.Close();
+                    return isBalanceUpdated;
                 }
                 catch (Exception ex)
                 {
