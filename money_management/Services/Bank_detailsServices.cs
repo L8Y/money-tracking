@@ -128,6 +128,39 @@ namespace money_management.Services
 
         }
 
+        public bool isBankAccountUnique(string Account_Name, int userId)
+        {
+            bool isBankAccountUnique = false;
+            using (SqlConnection connection = new SqlConnection(Constr))
+            {
+                var isBankAccountUniquequery = "select count(Account_Name) from [dbo].[Bank_details] where [Account_Name]=@Account_Name and [UserId]=@userId";
+                SqlCommand command = new SqlCommand(isBankAccountUniquequery, connection);
+                command.Parameters.AddWithValue("@Account_Name", Account_Name);
+                command.Parameters.AddWithValue("@userId", userId);
+
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (Convert.ToInt32(reader[0]) == 0)
+                        {
+                            isBankAccountUnique = true;
+                        }
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
+            return isBankAccountUnique;
+        }
+
     }
 }
 

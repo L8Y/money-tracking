@@ -9,7 +9,7 @@
             :root {
     --form-background: rgba(64, 75, 135, 0.1);
     --text: #515151;
-    --form-secondary: #fd6457;
+    --form-secondary:#ff6d00;
 }
 
 .form-page {
@@ -34,8 +34,8 @@
 
 .form-input {
     width: 22rem;
-    height: 2.6rem;
-    border-radius: 1rem;
+    height: 3rem;
+    border-radius: 0.5rem;
     border: 1px solid var(--form-secondary);
     color: var(--text);
     font-size: large;
@@ -48,7 +48,7 @@
     color: #FFFFFF;
     width: 12rem;
     height: 3rem;
-    border-radius: 2rem;
+    border-radius: 0.5rem;
     cursor: pointer;
     border : none;
     font-size: large;
@@ -73,10 +73,14 @@
     <input class="form-button" type = "submit" value = "submit"/>
     <br />
     <p>Already have an account? <a href="login">Login</a></p>
+  
+    <p>@ViewData["Message"]</p>
     </section>
     </div>
+
+    
 </form>
 
-@ViewData["Message"]
+
 </body>
 </html>

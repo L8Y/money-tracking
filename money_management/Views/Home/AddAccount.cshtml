@@ -1,21 +1,87 @@
 ﻿<html>
     <head>
-       
+       <style>
+            :root {
+    --form-background: rgba(64, 75, 135, 0.1);
+    --text: #515151;
+    --form-secondary: #ff6d00;
+}
+
+.form-page {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.form-title {
+    color: var(--form-secondary);
+    display: flex;
+    justify-content: center;
+    color: var(--form-secondary);
+    margin-bottom: 1rem;
+}
+
+.form {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.form-input {
+    width: 22rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--form-secondary);
+    color: var(--text);
+    font-size: large;
+    padding-left: 1.2rem;
+    margin-bottom: 2rem;
+   
+}
+
+.form-button {
+    background-color: var(--form-secondary);
+    color: #FFFFFF;
+    width: 12rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    border : none;
+    cursor: pointer;
+    font-size: large;
+}
+
+.form-button-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+        </style>
     </head>
 <body>
-    <form method="post">
-        <div class="form">
-    <h1>Bank Account Details</h1>
-    <label class="form__label">Account Name</label>
-    <input required class="form__input" type = "text" name = "Account_Name" />
+    <form class="form" method="post">
+
+         <div class="form-page">
+            <h1 class="form-title" >Add Bank Account</h1>
+
+        
+   
     
-    <label class="form__label">Balance</label>
-    <input required class="form__input" type = "number" name = "Initial_Balance" />
-    <input class="form__button" type = "submit" value = "submit"/>
+    <input class="form-input" required  type = "text" placeholder="Enter Account name" name = "Account_Name" />
+    
+    
+    <input class="form-input" required  type = "number" placeholder="Enter initial balance" name = "Initial_Balance" />
+   
+    <section class="form-button-layout">
+    <input class="form-button" type = "submit" value = "submit"/>
+    <br /><br />
+    <p>@ViewData["Message"]</p>
+    </section>
     </div>
 </form>
 
-@ViewData["Message"]
+
 </body>
 </html>
 

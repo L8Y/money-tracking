@@ -165,7 +165,41 @@ namespace money_management.Services
                 return currentUserId;
             }
 
+
+
         }
-            
+
+        public bool isEmailUnique(string email)
+        {
+            bool isEmailUnique = false; 
+            using (SqlConnection connection = new SqlConnection(Constr))
+            {
+                var isEmailUniquequery = "select count(Email) from [dbo].[Register] where [Email]=@email";
+                SqlCommand command = new SqlCommand(isEmailUniquequery, connection);
+                command.Parameters.AddWithValue("@Email", email);
+                
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if(Convert.ToInt32(reader[0]) == 0)
+                        {
+                            isEmailUnique = true;   
+                        }
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
+            return isEmailUnique;
+        }
+
     }
 }

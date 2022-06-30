@@ -31,6 +31,9 @@ namespace money_management.Controllers
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
             var accountDetails = _bank_DetailsService.getAccounts(userId);
             ViewBag.accountDetails = accountDetails;
+            var displayReportsById = _reportServices.displayReportsById(userId);
+            ViewBag.displayReports = displayReportsById;
+
             
             return View();
         }
@@ -42,10 +45,8 @@ namespace money_management.Controllers
             string user_bankid = Request.Form["User_BankId"];
             DateTime currentDate = DateTime.UtcNow.Date;
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
-            var accountDetails = _bank_DetailsService.getAccounts(userId);
 
-            
-            ViewBag.accountDetails = accountDetails;
+            var accountDetails = _bank_DetailsService.getAccounts(userId);
 
             bool isAmountValid = false;
             if(Convert.ToInt32(transaction_type) == 0)
@@ -61,7 +62,7 @@ namespace money_management.Controllers
             {
                 foreach (var item in accountDetails)
                 {
-                    if (Convert.ToInt32(item.Initial_Balance) < Amount)
+                    if (Amount < Convert.ToInt32(item.Initial_Balance))
                     {
                         isAmountValid = true;
                         balance = Convert.ToInt32(item.Initial_Balance) - Amount;
@@ -81,12 +82,7 @@ namespace money_management.Controllers
                 /*var isCredited = _reportServices.AddTransaction(Reason, Amount, balance, Convert.ToByte(transaction_type), currentDate, userId, Convert.ToInt32(user_bankid));*/
                 var isCredited = _reportServices.AddTransaction(Reason, Amount, balance, Convert.ToByte(transaction_type), currentDate, userId, Convert.ToInt32(user_bankid));
                 var isBalanceUpdated = _bank_DetailsService.updateInitialBalance(userId, Convert.ToInt32(user_bankid), balance);
-                if (isCredited > 0)
-                {
-
-                    ViewBag.Users = "Added";
-                }
-                else
+                if (isCredited == 0)
                 {
                     ViewBag.Users = "Not successfull";
 
@@ -94,6 +90,11 @@ namespace money_management.Controllers
 
             }
 
+            var displayReportsById = _reportServices.displayReportsById(userId);
+            ViewBag.displayReports = displayReportsById;
+
+            var viewAccounts = _bank_DetailsService.getAccounts(userId);
+            ViewBag.accountDetails = viewAccounts;
 
 
 
@@ -109,16 +110,27 @@ namespace money_management.Controllers
         [HttpPost]
         public ActionResult register(string Name, string EmailId, string Password)
         {
-            int isUserCreated = _registerService.createUser(Name, EmailId, Password);
-            
+            bool isEmailUnique = _registerService.isEmailUnique(EmailId);
 
-            if(isUserCreated > 0)
+            if (isEmailUnique)
             {
-                @ViewData["Message"] = "Added successfully";
+                int isUserCreated = _registerService.createUser(Name, EmailId, Password);
+
+
+
+
+                if (isUserCreated > 0)
+                {
+                    ViewData["Message"] = "Added successfully, please login";
+                }
+                else
+                {
+                    ViewData["Message"] = "Not successfull";
+                }
             }
             else
             {
-                @ViewData["Message"] = "Not successfull";
+                ViewData["Message"] = "EmailId already exists";
             }
             return View();
         }
@@ -184,17 +196,26 @@ namespace money_management.Controllers
 
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
 
+            bool isAccountNameQuery = _bank_DetailsService.isBankAccountUnique(Account_Name, userId);
 
 
-            int isAccountAdded = _bank_DetailsService.AddBankAccount(Account_Name, Initial_Balance, userId);
 
-            if (isAccountAdded > 0)
+            if (isAccountNameQuery)
             {
-                @ViewData["Message"] = "Added successfully";
+                int isAccountAdded = _bank_DetailsService.AddBankAccount(Account_Name, Initial_Balance, userId);
+
+                if (isAccountAdded > 0)
+                {
+                    ViewData["Message"] = "Added successfully";
+                }
+                else
+                {
+                    ViewData["Message"] = "Not successfull";
+                }
             }
             else
             {
-                @ViewData["Message"] = "Not successfull";
+                ViewData["Message"] = "Account Name already exists";
             }
             return View();
            
@@ -210,6 +231,11 @@ namespace money_management.Controllers
         [HttpGet]
         public ActionResult Report()
         {
+            if (HttpContext.Session.GetString("login_email") == null)
+            {
+                return RedirectToAction("login");
+            }
+
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
             var accountDetails = _bank_DetailsService.getAccounts(userId);
             ViewBag.accountDetails = accountDetails;
