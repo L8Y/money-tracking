@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using money_management.Interface;
 using money_tracker_lib;
 
@@ -13,8 +12,8 @@ namespace money_management.Controllers
         private readonly IReportServices _reportServices;
         public HomeController(IRegisterService registerService, IBank_detailsService bank_DetailsService, IReportServices reportServices)
         {
-              _registerService = registerService;
-             _bank_DetailsService = bank_DetailsService;
+            _registerService = registerService;
+            _bank_DetailsService = bank_DetailsService;
             _reportServices = reportServices;
         }
         [HttpGet]
@@ -24,17 +23,17 @@ namespace money_management.Controllers
             {
                 return RedirectToAction("login");
             }
-
-            
+ 
             ViewBag.name = HttpContext.Session.GetString("login_email");
 
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
+            //scrollbar, dropdown
             var accountDetails = _bank_DetailsService.getAccounts(userId);
             ViewBag.accountDetails = accountDetails;
+            //chatarea
             var displayReportsById = _reportServices.displayReportsById(userId);
             ViewBag.displayReports = displayReportsById;
 
-            
             return View();
         }
         [HttpPost]
@@ -46,7 +45,7 @@ namespace money_management.Controllers
             DateTime currentDate = DateTime.UtcNow.Date;
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
 
-            var accountDetails = _bank_DetailsService.getAccounts(userId);
+            var accountDetails = _bank_DetailsService.getCurrentBalance(userId, Convert.ToInt32(user_bankid));
 
             bool isAmountValid = false;
             if(Convert.ToInt32(transaction_type) == 0)
@@ -82,10 +81,11 @@ namespace money_management.Controllers
                 /*var isCredited = _reportServices.AddTransaction(Reason, Amount, balance, Convert.ToByte(transaction_type), currentDate, userId, Convert.ToInt32(user_bankid));*/
                 var isCredited = _reportServices.AddTransaction(Reason, Amount, balance, Convert.ToByte(transaction_type), currentDate, userId, Convert.ToInt32(user_bankid));
                 var isBalanceUpdated = _bank_DetailsService.updateInitialBalance(userId, Convert.ToInt32(user_bankid), balance);
+
+                //row affected in report table
                 if (isCredited == 0)
                 {
                     ViewBag.Users = "Not successfull";
-
                 }
 
             }
@@ -96,15 +96,11 @@ namespace money_management.Controllers
             var viewAccounts = _bank_DetailsService.getAccounts(userId);
             ViewBag.accountDetails = viewAccounts;
 
-
-
-
             return View();
         }
         [HttpGet]
         public ActionResult register()
         {
-            
             return View();
         }
         [HttpPost]
@@ -115,9 +111,6 @@ namespace money_management.Controllers
             if (isEmailUnique)
             {
                 int isUserCreated = _registerService.createUser(Name, EmailId, Password);
-
-
-
 
                 if (isUserCreated > 0)
                 {
@@ -138,7 +131,6 @@ namespace money_management.Controllers
         [HttpGet]
         public ActionResult login()
         {
-
             return View();
         }
         [HttpPost]
@@ -146,7 +138,6 @@ namespace money_management.Controllers
         {
             var isValidUser = _registerService.isValidUser(email, password);
 
-      
               foreach(var item in isValidUser)
               {
                 if(item.count > 0)  
@@ -156,7 +147,6 @@ namespace money_management.Controllers
 
                     var currentUserId = _registerService.GetUserId(HttpContext.Session.GetString("login_email"));
                     
-
                     foreach (var users in currentUserId)
                     {
                         HttpContext.Session.SetInt32("login_userId", users.UserId);
@@ -172,35 +162,27 @@ namespace money_management.Controllers
                    
               }
               
-           
             return View();
 
         }
 
         [HttpGet]
-
         public ActionResult AddAccount()
         {
             if (HttpContext.Session.GetString("login_email") == null)
             {
                 return RedirectToAction("login");
             }
-
-           
             return View();
         }
         [HttpPost]
-
         public ActionResult AddAccount(string Account_Name, string Initial_Balance)
         {
 
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
+            bool isAccountNameUnique = _bank_DetailsService.isBankAccountUnique(Account_Name, userId);
 
-            bool isAccountNameQuery = _bank_DetailsService.isBankAccountUnique(Account_Name, userId);
-
-
-
-            if (isAccountNameQuery)
+            if (isAccountNameUnique)
             {
                 int isAccountAdded = _bank_DetailsService.AddBankAccount(Account_Name, Initial_Balance, userId);
 
@@ -235,20 +217,34 @@ namespace money_management.Controllers
             {
                 return RedirectToAction("login");
             }
-
+            ViewBag.filterTitle = null;
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
+            //dropdown
             var accountDetails = _bank_DetailsService.getAccounts(userId);
             ViewBag.accountDetails = accountDetails;
-           
+            //complete table
             var displayReportsById = _reportServices.displayReportsById(userId);
             ViewBag.displayReports = displayReportsById;
+            TempData["currentAccount"] = null;
+            TempData.Keep();
             return View();
 
         }
         [HttpPost]
         public ActionResult Report(EventArgs e)
         {
-            string dropdown_bankAccount = Request.Form["User_BankId"];
+            string dropdown_bankAccount = Request.Form["User_BankId"];          
+            if(dropdown_bankAccount == "All Accounts")
+            {
+                TempData["currentAccount"] = null;
+                ViewBag.filterTitle = null ;
+            }
+            else
+            {
+                TempData["currentAccount"] = dropdown_bankAccount;
+                ViewBag.filterTitle = Convert.ToInt32(dropdown_bankAccount);
+            }
+            TempData.Keep();
             var userId = (int)HttpContext.Session.GetInt32("login_userId");
             var accountDetails = _bank_DetailsService.getAccounts(userId);
             ViewBag.accountDetails = accountDetails;
@@ -260,14 +256,35 @@ namespace money_management.Controllers
             }
             else
             {
+                //pass both userId and the selected account Id
                 var displayReports = _reportServices.displayReports(userId, Convert.ToInt32(dropdown_bankAccount));
                 ViewBag.displayReports = displayReports;
-
-            }
-                    
+            }       
             return View();
         }
-
-
+        [HttpPost]
+        public ActionResult reportSearch(string search)
+        {
+            var userId = (int)HttpContext.Session.GetInt32("login_userId");
+            if (TempData["currentAccount"] != null)
+            {
+                var displaySearchByAccount = _reportServices.searchReportByAccount(userId, search, Convert.ToInt32(TempData["currentAccount"]));
+                ViewBag.displayReports = displaySearchByAccount;
+                ViewBag.filterTitle = Convert.ToInt32(TempData["currentAccount"]);
+                
+            }
+            else
+            {
+                var displaySearchByAllAccounts = _reportServices.searchReportByAllAccounts(userId, search);
+                ViewBag.displayReports = displaySearchByAllAccounts;
+                ViewBag.filterTitle = null;
+            }
+            
+            var accountDetails = _bank_DetailsService.getAccounts(userId);
+            ViewBag.accountDetails = accountDetails;
+            
+            TempData.Keep();
+            return View("Report");
+        }
     }
 }

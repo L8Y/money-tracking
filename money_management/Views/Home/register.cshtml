@@ -5,82 +5,79 @@
 
 <html>
     <head>
+        <title>Money Management App</title>
         <style>
             :root {
-    --form-background: rgba(64, 75, 135, 0.1);
-    --text: #515151;
-    --form-secondary:#ff6d00;
-}
+                --form-background: rgba(64, 75, 135, 0.1);
+                --text: #515151;
+                --form-secondary:#ff6d00;
+            }
 
-.form-page {
-    display: flex;
-    flex-direction: column;
-    margin-top: 5%;
-}
+            .form-page {
+                display: flex;
+                flex-direction: column;
+                margin-top: 5%;
+            }
 
-.form-title {
-    color: var(--form-secondary);
-    display: flex;
-    justify-content: center;
-    color: var(--form-secondary);
-}
+            .form-title {
+                display: flex;
+                justify-content: center;
+                color: #E95C20FF;
+                font-family: "Handlee", cursive;
+            }
 
-.form {
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-}
+            .form {
+                background-color: white;
+                display: flex;
+                justify-content: center;
+   
+            }
 
-.form-input {
-    width: 22rem;
-    height: 3rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--form-secondary);
-    color: var(--text);
-    font-size: large;
-    padding-left: 1.2rem;
-    margin-bottom: 2rem;
-}
+            .form-input {
+                width: 22rem;
+                height: 3rem;
+                border-radius: 0.5rem;
+                border: 1px solid #E95C20FF;
+                color: var(--text);
+                font-size: large;
+                padding-left: 1.2rem;
+                margin-bottom: 2rem;
+                font-family: "Handlee", cursive;
+            }
 
-.form-button {
-    background-color: var(--form-secondary);
-    color: #FFFFFF;
-    width: 12rem;
-    height: 3rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    border : none;
-    font-size: large;
-}
+            .form-button {
+                background-color: #E95C20FF;
+                color: #FFFFFF;
+                width: 12rem;
+                height: 3rem;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                border : none;
+                font-size: large;
+                font-family: "Handlee", cursive;
+            }
 
-.form-button-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-        </style>
-       
+            .form-button-layout {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        </style>       
     </head>
-<body>
-    <form  class="form" method="post">
-        <div class="form-page">
-    <h1 class="form-title">Sign Up</h1>
-    <input required class="form-input" placeholder="Name" type = "text" name = "Name" />
-    <input required class="form-input" placeholder="Email" type = "email" name = "EmailId" />
-    <input required class="form-input" placeholder="Password" type = "password" name = "Password" />
-    <section class="form-button-layout">
-    <input class="form-button" type = "submit" value = "submit"/>
-    <br />
-    <p>Already have an account? <a href="login">Login</a></p>
-  
-    <p>@ViewData["Message"]</p>
-    </section>
-    </div>
-
-    
-</form>
-
-
-</body>
+    <body>
+        <form  class="form" method="post">
+            <div class="form-page">
+                <h1 class="form-title">Sign Up</h1>
+                <input required class="form-input" placeholder="Name" type = "text" name = "Name" />
+                <input required class="form-input" placeholder="Email" type = "email" name = "EmailId" />
+                <input required class="form-input" placeholder="Password" type = "password" name = "Password" />
+                <section class="form-button-layout">
+                    <input class="form-button" type = "submit" value = "submit"/>
+                    <br />
+                    <p>Already have an account? <a href="login">Login</a></p>
+                    <p>@ViewData["Message"]</p>
+                </section>
+            </div>
+        </form>
+    </body>
 </html>

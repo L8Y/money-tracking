@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "IXDolUQrRJT+x2zcFZngadAe2gr7CXfVtSqDOzLeXms=",
+  "Hash": "fL7HeFoYoEHQeISYd2VRDwNhGQxtvQv8PR672tPoU4Q=",
   "Source": "money_management",
   "BasePath": "_content/money_management",
   "Mode": "Default",
@@ -100,6 +100,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\money_management\\money_management\\wwwroot\\lib\\arrowicon.svg",
+      "SourceId": "money_management",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\money_management\\money_management\\wwwroot\\",
+      "BasePath": "_content/money_management",
+      "RelativePath": "lib/arrowicon.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\arrowicon.svg"
+    },
+    {
+      "Identity": "C:\\money_management\\money_management\\wwwroot\\lib\\bank.svg",
+      "SourceId": "money_management",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\money_management\\money_management\\wwwroot\\",
+      "BasePath": "_content/money_management",
+      "RelativePath": "lib/bank.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\bank.svg"
     },
     {
       "Identity": "C:\\money_management\\money_management\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
@@ -1069,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\money_management\\money_management\\wwwroot\\lib\\search.svg",
+      "SourceId": "money_management",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\money_management\\money_management\\wwwroot\\",
+      "BasePath": "_content/money_management",
+      "RelativePath": "lib/search.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\search.svg"
     },
     {
       "Identity": "C:\\money_management\\money_management\\wwwroot\\lib\\search-icon.svg",

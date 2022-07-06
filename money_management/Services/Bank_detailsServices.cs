@@ -19,53 +19,36 @@ namespace money_management.Services
 
         public int AddBankAccount(string Account_Name, string Initial_Balance, int UserId)
         {
-            using (SqlConnection connection =
-           new SqlConnection(Constr))
+            int isAccountCreated = 0;
+            using (SqlConnection connection = new SqlConnection(Constr))
             {
                 var addAccountquery = "insert into [dbo].[Bank_details] values(@Account_Name, @Initial_Balance, @UserId)";
                 SqlCommand command = new SqlCommand(addAccountquery, connection);
                 command.Parameters.AddWithValue("@Account_Name", Account_Name);
                 command.Parameters.AddWithValue("@Initial_Balance", Initial_Balance);
                 command.Parameters.AddWithValue("@UserId", UserId);
-
                 try
                 {
                     connection.Open();
-                    int isAccountCreated = command.ExecuteNonQuery();
-                    return isAccountCreated;
+                    isAccountCreated = command.ExecuteNonQuery();
                     connection.Close();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-
-
             }
-            return 0;
-
-
-
+            return isAccountCreated;
         }
 
         public IEnumerable<Bank_details> getAccounts(int UserId)
         {
             List<Bank_details> accounts = new List<Bank_details>();
-            using (SqlConnection connection =
-           new SqlConnection(Constr))
+            using (SqlConnection connection = new SqlConnection(Constr))
             {
-                // Create the Command and Parameter objects.
-
                 var queryString = "SELECT  [User_BankId],[Account_Name] ,[Initial_Balance] FROM [dbo].[Bank_details] where UserId = @UserId";
-               
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.AddWithValue("@UserId", UserId);
-
-
-
-                // Open the connection in a try/catch block.
-                // Create and execute the DataReader, writing the result
-                // set to the console window.
                 try
                 {
                     connection.Open();
@@ -79,7 +62,6 @@ namespace money_management.Services
                             Initial_Balance = reader[2].ToString(),
                             
                         });
-
                     }
                     reader.Close();
                 }
@@ -90,42 +72,30 @@ namespace money_management.Services
 
             }
             return accounts;
-
-
-
-
         }
 
         public int updateInitialBalance(int userId, int user_bankid, int balance)
         {
-            using (SqlConnection connection =
-           new SqlConnection(Constr))
+            int isBalanceUpdated = 0;
+            using (SqlConnection connection = new SqlConnection(Constr))
             {
                 var updateBalanceQuery = "UPDATE [dbo].[Bank_details] SET Initial_Balance = @balance where UserId = @userId and User_BankId = @user_bankid";
                 SqlCommand command = new SqlCommand(updateBalanceQuery, connection);
                 command.Parameters.AddWithValue("@balance", balance);
                 command.Parameters.AddWithValue("@userId", userId);
                 command.Parameters.AddWithValue("@user_bankid", user_bankid);
-
                 try
                 {
                     connection.Open();
-                    int isBalanceUpdated = command.ExecuteNonQuery();
-                    
+                    isBalanceUpdated = command.ExecuteNonQuery();
                     connection.Close();
-                    return isBalanceUpdated;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-
-
             }
-            return 0;
-
-
-
+            return isBalanceUpdated;
         }
 
         public bool isBankAccountUnique(string Account_Name, int userId)
@@ -137,8 +107,6 @@ namespace money_management.Services
                 SqlCommand command = new SqlCommand(isBankAccountUniquequery, connection);
                 command.Parameters.AddWithValue("@Account_Name", Account_Name);
                 command.Parameters.AddWithValue("@userId", userId);
-
-
                 try
                 {
                     connection.Open();
@@ -156,11 +124,41 @@ namespace money_management.Services
                 {
                     Console.WriteLine(ex.Message);
                 }
-
             }
             return isBankAccountUnique;
         }
 
+        public IEnumerable<Bank_details> getCurrentBalance(int UserId, int User_BankId)
+        {
+            List<Bank_details> currentAccountBalance = new List<Bank_details>();
+            using (SqlConnection connection = new SqlConnection(Constr))
+            {
+                var getCurrentBalanceQuery = "SELECT [Initial_Balance] FROM [dbo].[Bank_details] where UserId = @UserId and User_BankId = @User_BankId";
+                SqlCommand command = new SqlCommand(getCurrentBalanceQuery, connection);
+                command.Parameters.AddWithValue("@UserId", UserId);
+                command.Parameters.AddWithValue("@User_BankId", User_BankId);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        currentAccountBalance.Add(new Bank_details
+                        {
+                            Initial_Balance = reader[0].ToString()
+                        });
+
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
+            return currentAccountBalance;
+        }
     }
 }
 

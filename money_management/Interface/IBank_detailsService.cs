@@ -9,5 +9,6 @@ namespace money_management.Interface
 
         public int updateInitialBalance(int UserId, int User_BankId, int Initial_Balance);
         public bool isBankAccountUnique(string Account_Name, int userId);
+        public IEnumerable<Bank_details> getCurrentBalance(int UserId, int User_BankId);
     }
 }

@@ -20,13 +20,6 @@ namespace money_tracker_lib
             return dr;
             con.Close();
 
-
-
-
         }
-
-
     }
-
-
 }

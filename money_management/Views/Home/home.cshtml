@@ -2,204 +2,189 @@
 <html>
     <head>
         <style>
+
             .money-home {
                 margin: 2rem 10rem 0rem 10rem;
             }
-      .money-chat {
-            overflow: auto;
-            height: 75vh;
-            border: 0.5px solid black;
-           /*box-shadow: 1px -15px 30px #ff5c00 ; */
-            border-top-left-radius: 1rem;
-            
-           
-            /background-color: rgba(64, 75, 135, 0.05);/
-        }
 
-        .money-input {
-            
-            font-family: "Handlee", cursive;
-            font-size: 0.9rem;
-        }
+            .money-chat {
+                overflow: auto;
+                height: 75vh;
+                border: 0.5px solid black;
+                border-top-left-radius: 1rem;
+            }
 
-        .money-name {
-            display: flex;
-            justify-content:center;
-           font-family: "Handlee", cursive;
-           padding: 1rem;
+            .money-input {
+            
+                font-family: "Handlee", cursive;
+                font-size: 0.9rem;
+            }
+
+            .money-name {
+                display: flex;
+                justify-content:center;
+               font-family: "Handlee", cursive;
+               padding: 1rem;
          
-           font-size: 1.6rem;
-        }
+               font-size: 1.6rem;
+            }
 
-        .input {
-            width: 30%;
-            height: 1.6rem;
-            border: 2px solid black;
-            font-family: "Handlee", cursive;
-            font-size: 1rem;
-        }
+            .input {
+                width: 30%;
+                height: 1.6rem;
+                border: 2px solid black;
+                font-family: "Handlee", cursive;
+                font-size: 1rem;
+            }
 
-        .dropdown {
-            width: 15%;
-            height: 1.8rem;
-            border: 2px solid black;
-            text-align:center;
-            font-family: "Handlee", cursive;
-            font-size: 1rem;
-        }
+            .dropdown {
+                width: 15%;
+                height: 1.8rem;
+                border: 2px solid black;
+                text-align:center;
+                font-family: "Handlee", cursive;
+                font-size: 1rem;
+            }
 
-        .button {
-            font-family: "Handlee", cursive;
-            border-bottom-right-radius:0.3rem;
-            font-size: 1rem;
-            width: 8%;
-            height: 1.8rem;
-            border: none;
-            background-color:#FF8F50;
-            color: white
-        }
+            .button {
+                font-family: "Handlee", cursive;
+                border-bottom-right-radius:0.3rem;
+                font-size: 1rem;
+                width: 8%;
+                height: 1.8rem;
+                border: none;
+                background-color:#FF8F50;
+                color: white;
+                cursor:pointer;
+            }
 
-        .credit {
-            display: flex;
-            justify-content: flex-start;
-            margin-left: 5rem;
-            margin-bottom: 1rem;
-        }
+            .credit {
+                display: flex;
+                justify-content: flex-start;
+                margin-left: 5rem;
+                margin-bottom: 1rem;
+            }
 
-        .debit {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 1rem;
-            margin-right: 5rem;
+            .debit {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 1rem;
+                margin-right: 5rem;
 
-        }
+            }
 
-        .credit-items {
-            border-radius: 0.5rem;
-            display: flex;
-             background-color: #ECFFE9;
-             padding: 1rem;
-             width: 30%
-        }
+            .credit-items {
+                 border-radius: 0.5rem;
+                 display: flex;
+                 background-color: #ECFFE9;
+                 padding: 1rem;
+                 width: 30%
+            }
 
-        .credit-amount {
-            color: #28AF12;
-            font-size: 18px;
-            font-weight: bold;
-            padding-right: 0.5rem;
-            padding-left: 0.5rem;
-        }
+            .credit-amount {
+                color: #28AF12;
+                font-size: 18px;
+                font-weight: bold;
+                padding-right: 0.5rem;
+                padding-left: 0.5rem;
+            }
 
-        .debit-items {
-            border-radius: 0.5rem;
-            display: flex;
-             background-color: #FFE9E9;
-             padding: 1rem;          
-             width: 30%
+            .debit-items {
+                 border-radius: 0.5rem;
+                 display: flex;
+                 background-color: #FFE9E9;
+                 padding: 1rem;          
+                 width: 30%
             
-        }
+            }
 
-        .debit-amount {
-            color: #DD0000;
-            font-weight: bold;
-            font-size: 18px;
-            padding-right: 0.5rem;
-            padding-left: 0.5rem;
-        }
+            .debit-amount {
+                color: #DD0000;
+                font-weight: bold;
+                font-size: 18px;
+                padding-right: 0.5rem;
+                padding-left: 0.5rem;
+            }
 
-        .credit-reason{
-            font-size: 18px;
-        }
+            .credit-reason{
+                font-size: 18px;
+            }
 
-        .debit-reason{
-            font-size: 18px;
-        }
+            .debit-reason{
+                font-size: 18px;
+            }
 
 
-        .scrolling{
-            display: flex;
-            
-            margin: 15px;
-           
-        }
+            .scrolling{
+                display: flex;            
+                margin: 15px;           
+            }
 
-        .scrolling-text{
-            padding: 17px;
-            font-size : 15px;
-            font-family: "Handlee", cursive;
-            font-weight: 200;
-        }
-
+            .scrolling-text{
+                padding: 17px;
+                font-size : 15px;
+                font-family: "Handlee", cursive;
+                font-weight: 200;
+            }
         </style>
-
-
-        @*Context.Session.GetString("login_role")*@
-
     </head>
     <body>
-       
-          <marquee class="scrolling" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
-               @foreach(var item in ViewBag.accountDetails)
+        <marquee class="scrolling" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+            @foreach(var item in ViewBag.accountDetails)
             {
                <span class="scrolling-text"> @item.Account_Name.ToUpper() : <span style="color:#28AF12"> ₹ @item.Initial_Balance </span> </span>
             }
         </marquee>
-       
         @ViewBag.Users
-     <div class="money-home">
-         <section class="money-chat">
-         @foreach(var item in ViewBag.displayReports)
-        {
-            
-            if(@item.Transaction_type == 0)
-            {
-               <div class="credit">
-                   <div class="credit-items">
-                       <p class="credit-amount">₹ @item.Amount</p>
-                       <p class="credit-reason">@item.Reason</p>
-                   </div>
+        <div class="money-home">
+            <section class="money-chat">
+                @foreach(var item in ViewBag.displayReports)
+                {            
+                    if(@item.Transaction_type == 0)
+                    {
+                    <div class="credit">
+                        <div class="credit-items">
+                            <p class="credit-amount">₹ @item.Amount</p>
+                            <p class="credit-reason">@item.Reason</p>
+                        </div>
                     </div>
-                }
-                else
-                {
+                    }
+                    else
+                    {
                     <div class="debit">
-                   <div class="debit-items">
-                       <p class="debit-amount">₹ @item.Amount</p>
-                       <p class="debit-reason">@item.Reason</p>
-                   </div>
+                        <div class="debit-items">
+                            <p class="debit-amount">₹ @item.Amount</p>
+                            <p class="debit-reason">@item.Reason</p>
+                        </div>
                     </div>
+                    }
                 }
-            }
-        </section> 
+                <div id="messageBody"></div>
+           </section> 
 
-        @*@foreach(var data in ViewBag.accountDetails)
-        {
-            if(@data.)
-        }*@
-
-     <div class="money-input">
-       <form method="post">
-       <input class="input" type="text" placeholder="Enter reason" name="Reason"/>
-       <input class="input" type="number" placeholder="Enter amount" name="Amount"/>
-       <select name="User_BankId" id="Bank_id" required class="dropdown" >
-                 @foreach(var item in ViewBag.accountDetails){
-                 <option required value="@item.User_BankId">@item.Account_Name</option>
-                 }
-                </select>
-       <select name="Transaction_type" id="transaction" required class="dropdown" >
-                
-          <option required value=0>Credit</option>
-          <option required value=1>Debit</option>
-                
-                </select>
-                
-       <input class="button" type="submit" value="Submit" onclick=onsubmit/>
-       
-       </form>
-       </div>
+           <div class="money-input">
+                <form method="post">
+                    <input class="input" type="text" placeholder="Enter reason" name="Reason"/>
+                    <input class="input" type="number" min="1" placeholder="Enter amount" name="Amount"/>
+                    <select name="User_BankId" id="Bank_id" required class="dropdown" >
+                        @foreach(var item in ViewBag.accountDetails){
+                            <option required value="@item.User_BankId">@item.Account_Name</option>
+                        }
+                    </select>
+                    <select name="Transaction_type" id="transaction" required class="dropdown" >                
+                        <option required value=0>Credit</option>
+                        <option required value=1>Debit</option>                
+                    </select>       
+                    <input class="button" type="submit" value="Submit" />
+                </form>
+           </div>
       </div>
+      @ViewBag.Error
 
-        @ViewBag.Error
-    </body>
+      <script type="text/javascript">
+        var messageBody = document.querySelector('#messageBody');
+        messageBody.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});   
+	  </script>
+   </body>
 </html>
 

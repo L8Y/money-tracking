@@ -6,8 +6,6 @@
                 display: flex;
                 justify-content: center;
                 margin-top: 2rem;
-
-
             }
 
             .dropdown{
@@ -26,9 +24,7 @@
                 height: 3px;
                 cursor: pointer;
                 margin-left: 1rem;
-                margin-top: -0.4rem;
-                
-                
+                margin-top: -0.4rem;  
             }
 
             .report-table{
@@ -53,58 +49,126 @@
 
             th{
                 background-color: #ff6d00;
-                color: white;
+                color: white;   
+            }
+
+            .reportTitle{               
+                font-family: "Handlee", cursive;
+                font-size: 20px;                
+                font-weight: bold;              
+            }
+
+            .image{
+                height: 2rem;
+                width: 2rem;                
+                padding-right:1rem;
                 
             }
 
-            tr:nth-child(even) {
+            .currentAccountName{
+                display:flex;
+                
+                align-content:center;
                 
             }
+
+            .search-area{
+                display:flex;
+                justify-content:space-between;
+                width:80%;               
+            }
+
+            .search{
+               display:flex;
+               align-content:center;
+            }
+
+            .search-input{
+                width: 13rem;
+                border:none;
+                border-bottom: 2px solid black;
+                font-family: "Handlee", cursive;
+                font-size : 18px;
+            }
+
+            .search-button{
+                background-color:white;
+                border:none;
+                cursor:pointer;
+                margin-left:1rem;
+            }
+
+            .secondary-level{
+                display:flex;
+                justify-content:center;
+            }
+
 
         </style>
     </head>
     <body>
         <form method="post">
             <div class="dropdown-area">
-            <select name="User_BankId" id="Bank_id" required class="dropdown" >
-               
-                <option required value="All Accounts">All Accounts</option>
-                 @foreach(var item in ViewBag.accountDetails){
-                 <option required value="@item.User_BankId">@item.Account_Name</option>
-                 }
+                <select name="User_BankId" id="Bank_id" required class="dropdown">               
+                    <option required value="All Accounts">All Accounts</option>
+                        @foreach(var item in ViewBag.accountDetails){
+                            <option required value="@item.User_BankId">@item.Account_Name</option>
+                        }
                 </select>
-            <button type="submit" class="submit-button" onclick=onsubmit><img src="~/lib/search-icon.svg" /></button>
+                <button type="submit" formaction="Report" class="submit-button" onclick=onsubmit><img src="~/lib/search-icon.svg" /></button>
+            </div>
+            <div class="secondary-level">
+                <div class="search-area">
+                    @if( ViewBag.filterTitle == null)
+                    {
+                        <div class="currentAccountName">
+                                <img class="image" src="~/lib/bank.svg"/><p class="reportTitle">All Accounts</p>
+                        </div>
+                    
+                    }
+                    @foreach(var item in ViewBag.accountDetails)
+                    {
+                        @if(@item.User_BankId == ViewBag.filterTitle)
+                        {
+                            <div class="currentAccountName">
+                                <img class="image" src="~/lib/bank.svg"/><p class="reportTitle">@item.Account_Name.ToUpper()</p>
+                        </div>
+                    }
+                }
+                    <form method="post">
+                        <div class="search">
+                        <input class="search-input" type="text" placeholder="search" name="search" />
+                        <button class="search-button" type="submit" formaction="reportSearch"><img class="image" src="~/lib/search.svg"/></button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="report-table">
-            <table>
-                <tr>
-                    <th>Date</th>
-                    <th>Reason</th>
-                    <th>Amount</th>
-                    <th>Balance</th>
-                    
-                </tr>
-                @foreach(var item in ViewBag.displayReports)
-                {
+                <table>
                     <tr>
-                        <td>@item.Date.ToString("dd/mm/yyyy")</td>
-                        <td>@item.Reason</td>
-                        @if(@item.Transaction_type == 0)
-                        {
-                            <td style="color: #28AF12">+@item.Amount</td>
-                        }
-                        else
-                        {
-                           <td style="color: #DD0000">-@item.Amount</td> 
-                        }
-                        
-                        <td><b>@item.Balance</b></td>
-                       
+                        <th>Date</th>
+                        <th>Reason</th>
+                        <th>Amount</th>
+                        <th>Balance</th>                   
                     </tr>
-                }
-
-            </table>
-           </div>
+                    @foreach(var item in ViewBag.displayReports)
+                    {
+                        <tr>
+                            <td>@item.Date.ToString("yyyy/MM/dd")</td>
+                            <td>@item.Reason</td>
+                            @if(@item.Transaction_type == 0)
+                            {
+                                <td style="color: #28AF12">+@item.Amount</td>
+                            }
+                            else
+                            {
+                               <td style="color: #DD0000">-@item.Amount</td> 
+                            }                        
+                            <td><b>@item.Balance</b></td>                      
+                        </tr>
+                    }
+                </table>
+            </div>
         </form>
     </body>
 </html>

@@ -1,58 +1,44 @@
 ﻿@using Microsoft.AspNetCore.Http
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Money Management App</title>
+        <style>
+            *{
+                padding : 0%;
+                margin : 0%;
+            }
 
-    <style>
-        *{
-            padding : 0%;
-            margin : 0%;
+            .navbar{
+                display : flex;
+                justify-content : space-around;
+                border-top : 2px solid black;
+                border-bottom : 2px solid black;
+                width : 98%;
+                padding : 1rem;            
+            }
 
-        }
+            .nav-link{
+                text-decoration : none;
+                color : black;
+                font-size : 25px;
+                font-family: "Handlee", cursive;
+            }
 
-        .navbar{
-            display : flex;
-            justify-content : space-around;
-            border-top : 2px solid black;
-            border-bottom : 2px solid black;
-            width : 98%;
-            padding : 1rem;
-            
-        }
-
-        .nav-link{
-            text-decoration : none;
-            color : black;
-            font-size : 25px;
-            font-family: "Handlee", cursive;
-
-        }
-
-        .nav-link:hover{
-            text-decoration: underline;
-        }
-
-
-    </style>
-</head>
-
-<body>
-   <nav  class="navbar">
-    
-     <a class="nav-link" href="home">Home</a>
-     <a class="nav-link" href="AddAccount">Add Account</a>
-     <a class="nav-link" href="Report">Report</a>
-     <a class="nav-link" href="Logout">Logout</a>
-
-    
-         
-         
-      </nav>
-      <article>@RenderBody()</article>
-   
-
-
-</body>
+            .nav-link:hover{
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <nav  class="navbar">    
+            <a class="nav-link" href="home">Home</a>
+            <a class="nav-link" href="AddAccount">Add Account</a>
+            <a class="nav-link" href="Report">Report</a>
+            <a class="nav-link" href="Logout">Logout</a> 
+        </nav>
+        <article>@RenderBody()</article>
+    </body>
 </html>

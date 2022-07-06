@@ -1,87 +1,79 @@
 ﻿<html>
     <head>
        <style>
-            :root {
-    --form-background: rgba(64, 75, 135, 0.1);
-    --text: #515151;
-    --form-secondary: #ff6d00;
-}
+         :root {
+            --form-background: black;
+            --text: #515151;
+            --form-secondary: #FF8F50;
+         }
 
-.form-page {
-    display: flex;
-    flex-direction: column;
-    margin-top: 5%;
-}
+        .form-page {
+            display: flex;
+            flex-direction: column;
+            margin-top: 5%;
+        }
 
-.form-title {
-    color: var(--form-secondary);
-    display: flex;
-    justify-content: center;
-    color: var(--form-secondary);
-    margin-bottom: 1rem;
-}
+        .form-title {
+            color: #E95C20FF;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-family: "Handlee", cursive;
+        }
 
-.form {
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-}
+        .form {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
 
-.form-input {
-    width: 22rem;
-    height: 3rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--form-secondary);
-    color: var(--text);
-    font-size: large;
-    padding-left: 1.2rem;
-    margin-bottom: 2rem;
+        .form-input {
+            width: 22rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            border: 1px solid #E95C20FF;
+            color: var(--text);
+            font-size: large;
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            font-family: "Handlee", cursive;
    
-}
+        }
 
-.form-button {
-    background-color: var(--form-secondary);
-    color: #FFFFFF;
-    width: 12rem;
-    height: 3rem;
-    border-radius: 0.5rem;
-    border : none;
-    cursor: pointer;
-    font-size: large;
-}
+        .form-button {
+            background-color: #E95C20FF;
+            color: #FFFFFF;
+            width: 12rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            border : none;
+            cursor: pointer;
+            font-size: large;
+            font-family: "Handlee", cursive;
+        }
 
-.form-button-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+        .form-button-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-}
-        </style>
-    </head>
-<body>
-    <form class="form" method="post">
-
-         <div class="form-page">
-            <h1 class="form-title" >Add Bank Account</h1>
-
-        
-   
-    
-    <input class="form-input" required  type = "text" placeholder="Enter Account name" name = "Account_Name" />
-    
-    
-    <input class="form-input" required  type = "number" placeholder="Enter initial balance" name = "Initial_Balance" />
-   
-    <section class="form-button-layout">
-    <input class="form-button" type = "submit" value = "submit"/>
-    <br /><br />
-    <p>@ViewData["Message"]</p>
-    </section>
-    </div>
-</form>
-
-
-</body>
+        }
+      </style>       
+   </head>
+   <body>
+        <form class="form" method="post">
+            <div class="form-page">
+                <h1 class="form-title" >Add Bank Account</h1>
+                <input class="form-input" required  type = "text" placeholder="Enter Account name" name = "Account_Name" />
+                <input class="form-input" required  type = "number" min="1" placeholder="Enter initial balance" name = "Initial_Balance" />
+                <section class="form-button-layout">
+                    <input class="form-button" type = "submit" value = "submit"/>
+                    <br /><br />
+                    <p>@ViewData["Message"]</p>
+                </section>
+            </div>
+        </form>
+    </body>
 </html>
 
